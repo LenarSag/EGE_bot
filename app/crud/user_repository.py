@@ -1,7 +1,5 @@
 from typing import Optional
 
-
-from sqlalchemy import and_, exists, func
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
