@@ -42,5 +42,7 @@ class SubjectScore(Base):
     student: Mapped["Student"] = relationship(back_populates="scores")
 
     _table_args__ = (
-        UniqueConstraint("student_id", "subject_name", name="uq_student_subject"),
+        UniqueConstraint(
+            "student_id", "subject_name", name="uq_student_subject"
+        ),
     )

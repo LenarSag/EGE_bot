@@ -14,6 +14,8 @@ from app.fsm.fsm import FSMRegisterForm
 router = Router()
 
 
+# Этот хэндлер будет срабатывать на команду /register вне состояний
+# и переводить пользователя в меню регистрации
 @router.message(Command(commands="register"), StateFilter(default_state))
 async def process_fillform_command(message: Message, state: FSMContext):
     async with async_session() as session:
@@ -26,7 +28,9 @@ async def process_fillform_command(message: Message, state: FSMContext):
 
 
 # Этот хэндлер будет срабатывать, если введено корректное имя
-@router.message(StateFilter(FSMRegisterForm.fill_first_name), CorrectFirstLastName())
+@router.message(
+    StateFilter(FSMRegisterForm.fill_first_name), CorrectFirstLastName()
+)
 async def process_first_name_sent(message: Message, state: FSMContext):
     await state.update_data(first_name=message.text)
     await message.answer(text="Спасибо!\n\nА теперь введите вашу фамилию")
@@ -49,7 +53,9 @@ async def warning_not_first_name(message: Message):
 
 
 # Этот хэндлер будет срабатывать, если введена корректная фамилия
-@router.message(StateFilter(FSMRegisterForm.fill_last_name), CorrectFirstLastName())
+@router.message(
+    StateFilter(FSMRegisterForm.fill_last_name), CorrectFirstLastName()
+)
 async def process_last_name_sent(message: Message, state: FSMContext):
     await state.update_data(last_name=message.text)
     student_data = await state.get_data()

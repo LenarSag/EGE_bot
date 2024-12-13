@@ -4,7 +4,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state
 from aiogram.types import CallbackQuery, Message
 
-from app.crud.subject_repository import add_score, get_score, save_all, update_score
+from app.crud.subject_repository import (
+    add_score, get_score, save_all, update_score
+)
 from app.crud.user_repository import get_student_by_id
 from app.database.database import async_session
 from app.keyboard.keyboard import scores_markup, scores_with_option
@@ -17,6 +19,8 @@ from config import MAX_SCORE, MIN_SCORE
 router = Router()
 
 
+# Этот хэндлер будет срабатывать на команду /enter_scores вне состояний
+# и переводить пользователя в ввод оценок
 @router.message(Command(commands="enter_scores"), StateFilter(default_state))
 async def process_enter_scores_command(message: Message, state: FSMContext):
     async with async_session() as session:
@@ -112,7 +116,8 @@ async def process_choose_next(callback: CallbackQuery, state: FSMContext):
     if callback.data == "next":
         # Продолжаем выбор предметов и выбор оценок
         await callback.message.answer(
-            text="Пожалуйста, выберите следующий предмет", reply_markup=scores_markup
+            text="Пожалуйста, выберите следующий предмет",
+            reply_markup=scores_markup
         )
         await state.set_state(FSMSetScores.set_score)
 
@@ -133,7 +138,9 @@ async def process_choose_next(callback: CallbackQuery, state: FSMContext):
 
         # Завершаем машину состояний
         await state.clear()
-        await callback.message.answer(text="Спасибо! Ваши данные сохранены!\n\n")
+        await callback.message.answer(
+            text="Спасибо! Ваши данные сохранены!\n\n"
+        )
 
 
 # Этот хэндлер будет срабатывать, если во время выбора дальнейших опций

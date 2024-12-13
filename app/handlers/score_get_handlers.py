@@ -42,6 +42,7 @@ async def process_ciew_scores_command(message: Message):
 
         scores_message = "Ваши баллы:\n\n"
         scores_message += "\n".join(
-            f"{result.subject_name.value}: {result.score}" for result in results
+            f"{result.subject_name.value}: {result.score}"
+            for result in results
         )
         await message.answer(text=scores_message)

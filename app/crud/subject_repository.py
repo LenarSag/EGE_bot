@@ -7,7 +7,9 @@ from sqlalchemy import update
 from app.models.subject import SubjectScore
 
 
-async def get_scores(session: AsyncSession, student_id: int) -> Sequence[SubjectScore]:
+async def get_scores(
+    session: AsyncSession, student_id: int
+) -> Sequence[SubjectScore]:
     query = select(SubjectScore).filter_by(student_id=student_id)
     result = await session.execute(query)
     return result.scalars().all()

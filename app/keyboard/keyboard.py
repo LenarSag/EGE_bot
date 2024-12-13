@@ -10,7 +10,9 @@ buttons_for_subjects = [
 ]
 # Создание клавиатуры по кнопкам (по 2 на строку)
 keyboard_for_subjects = [
-    buttons_for_subjects[i : i + 2] for i in range(0, len(buttons_for_subjects), 2)
+    buttons_for_subjects[i: i + 2] for i in range(
+        0, len(buttons_for_subjects), 2
+    )
 ]
 scores_markup = InlineKeyboardMarkup(inline_keyboard=keyboard_for_subjects)
 
@@ -25,4 +27,6 @@ continue_button = [
 
 # Создание клавиатуры с опцией выбора дальнейших действий
 keyboard_for_next_options = [continue_button, stop_enter_scores]
-scores_with_option = InlineKeyboardMarkup(inline_keyboard=keyboard_for_next_options)
+scores_with_option = InlineKeyboardMarkup(
+    inline_keyboard=keyboard_for_next_options
+)

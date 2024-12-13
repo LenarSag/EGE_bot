@@ -13,7 +13,10 @@ SUBJECTS = set([subject.value for subject in SubjectName])
 class CorrectFirstLastName(BaseFilter):
     async def __call__(self, message: Message) -> bool:
         name = str(message.text)
-        return re.match(FIRST_LAST_NAME_REGEX, name) and len(name) <= MAX_NAME_LENGTH
+        return (
+            re.match(FIRST_LAST_NAME_REGEX, name)
+            and len(name) <= MAX_NAME_LENGTH
+        )
 
 
 class CorrectSubject(BaseFilter):

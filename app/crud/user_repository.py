@@ -6,7 +6,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.student import Student
 
 
-async def get_student_by_id(session: AsyncSession, id: int) -> Optional[Student]:
+async def get_student_by_id(
+    session: AsyncSession, id: int
+) -> Optional[Student]:
     query = select(Student).filter_by(id=id)
     result = await session.execute(query)
     return result.scalar()

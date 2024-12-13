@@ -11,8 +11,12 @@ class Student(Base):
     __tablename__ = "student"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    first_name: Mapped[str] = mapped_column(String(MAX_NAME_LENGTH), nullable=False)
-    last_name: Mapped[str] = mapped_column(String(MAX_NAME_LENGTH), nullable=False)
+    first_name: Mapped[str] = mapped_column(
+        String(MAX_NAME_LENGTH), nullable=False
+    )
+    last_name: Mapped[str] = mapped_column(
+        String(MAX_NAME_LENGTH), nullable=False
+    )
 
     scores: Mapped[list["SubjectScore"]] = relationship(
         back_populates="student", cascade="all, delete-orphan"
