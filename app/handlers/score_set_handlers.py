@@ -10,9 +10,8 @@ from app.crud.subject_repository import (
 from app.crud.user_repository import get_student_by_id
 from app.database.database import async_session
 from app.keyboard.keyboard import scores_markup, scores_with_option
-from app.filters.filters import CorrectSubject
+from app.filters.filters import CorrectScore, CorrectSubject
 from app.fsm.fsm import FSMSetScores
-from config import MAX_SCORE, MIN_SCORE
 
 
 # Инициализируем роутер уровня модуля
@@ -74,7 +73,7 @@ async def warning_set_score(message: Message):
 # и переводит в состояние выбора опций
 @router.message(
     StateFilter(FSMSetScores.enter_score),
-    lambda x: x.text.isdigit() and MIN_SCORE <= int(x.text) <= MAX_SCORE,
+    CorrectScore()
 )
 async def process_entered_score(message: Message, state: FSMContext):
     score = int(message.text)
