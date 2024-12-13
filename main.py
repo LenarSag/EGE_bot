@@ -5,7 +5,6 @@ from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from dotenv import load_dotenv
 
-from app.database.database import init_models
 from app.handlers import (
     other_handlers,
     score_get_handlers,
@@ -17,7 +16,6 @@ from app.handlers import (
 load_dotenv()
 
 
-# Функция конфигурирования и запуска бота
 async def main():
     # Инициализируем хранилище
     storage = MemoryStorage()
