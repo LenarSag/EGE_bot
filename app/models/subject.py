@@ -27,7 +27,7 @@ class SubjectScore(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     student_id: Mapped[int] = mapped_column(
-        ForeignKey("student.id", ondelete="CASCADE")
+        ForeignKey("student.id", ondelete="CASCADE"), index=True
     )
     subject_name: Mapped[SubjectName] = mapped_column(
         Enum(SubjectName, values_callable=lambda obj: [e.value for e in obj]),
